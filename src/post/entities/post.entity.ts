@@ -30,6 +30,6 @@ export class Post {
   @CreateDateColumn()
   updated_at: Date;
 
-  @ManyToOne((type) => User, (user) => user.posts)
+  @ManyToOne(() => User, (user) => user.posts)
   user: User;
 }
