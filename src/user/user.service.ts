@@ -17,7 +17,7 @@ export class UserService {
     const items_per_page = Number(query.items_per_page) || 10;
     const page = Number(query.page) || 1;
     const skip = (page - 1) * items_per_page;
-    const keyword = query.search;
+    const keyword = query.search || '';
 
     const [res, total] = await this.userRepository.findAndCount({
       where: [
