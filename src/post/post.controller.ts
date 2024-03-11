@@ -25,7 +25,7 @@ import { FilterPostDto } from './dtos/filter-post.dto';
 import { Post as PostEntity } from './entities/post.entity';
 import { UpdatePostDto } from './dtos/update-post.dto';
 
-@Controller('post')
+@Controller('posts')
 export class PostController {
   constructor(private postService: PostService) {}
 
