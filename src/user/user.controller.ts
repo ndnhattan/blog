@@ -10,6 +10,7 @@ import {
   Put,
   Query,
   Req,
+  SetMetadata,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -35,9 +36,16 @@ export class UserController {
   @ApiQuery({ name: 'page' })
   @ApiQuery({ name: 'items_per_page' })
   @ApiQuery({ name: 'search' })
+  @SetMetadata('roles', ['admin'])
   @Get()
   findAll(@Query() query: FilterUserDto): Promise<User[]> {
     return this.userService.findAll(query);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('profile')
+  getProfile(@Req() req: any): Promise<User> {
+    return this.userService.findOne(Number(req.user.id));
   }
 
   @UseGuards(AuthGuard)
@@ -107,7 +115,7 @@ export class UserController {
 
     this.userService.updateAvatar(
       req.user.id,
-      file.destination + '/' + file.filename,
+      file.fieldname + '/' + file.filename,
     );
   }
 }
